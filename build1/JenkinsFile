@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+
+  parameters {
+        string(name: 'Greeting', defaultValue: 'Hello', description: 'How should I greet the world?')
+    }
+
+    git(
+       url: 'git@github.com:jdcanas/jenkinsfile-test.git.git',
+    //    credentialsId: 'xpc',
+       branch: "master"
+    )
+
+    stages {
+        stage('Build') {
+            steps {
+                echo "building ${params.Greeting}"
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Testing..'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying....'
+            }
+        }
+    }
+}
