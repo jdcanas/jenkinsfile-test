@@ -2,6 +2,7 @@
 import hudson.model.*
 
 DEV="dev"
+//this is a nonsensical function meant to demo the power groovy brings to jenkins jobs
 def get3Chars(dynamicUnsafeVar) {
     try {
         def parsed = dynamicUnsafeVar.substring(0,3)
