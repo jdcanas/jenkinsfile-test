@@ -1,4 +1,6 @@
 //sample function that trys to get the first 3 chars of a string
+import hudson.model.*
+
 DEV="dev"
 def get3Chars(dynamicUnsafeVar) {
     try {
@@ -10,6 +12,7 @@ def get3Chars(dynamicUnsafeVar) {
         }
     } catch(Exception e) {
         sh 'echo failed to parse var'
+        currentBuild.setDisplayName("Much Dynamic")
         println(e.getMessage())
         return 1
     }
@@ -37,7 +40,7 @@ pipeline {
                 script {
                     get3Chars("dev")
                     get3Chars("shouldWork")
-                    get3Chars(1034)
+                    get3Chars(1034) //will cause an exception
                 }
             }
         }
