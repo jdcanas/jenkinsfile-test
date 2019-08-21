@@ -1,6 +1,22 @@
+//sample function that trys to get the first 3 chars of a string
+DEV="dev"
+def get3Chars(dynamicUnsafeVar) {
+    try {
+        def parsed = dynamicUnsafeVar.substring(0,3)
+        if (parsed == DEV) {
+            echo "we are running in dev"
+        } else {
+            echo "Not dev, env is: ${parsed}"
+        }
+    } catch(Exception e) {
+        sh 'echo failed to parse var'
+        println(e.getMessage())
+        return 1
+    }
+}
+
 pipeline {
    agent any
-
 
     parameters {
         string(name: 'Greeting', defaultValue: 'Hello', description: 'How should I greet the world?')
@@ -12,10 +28,17 @@ pipeline {
                 git url: 'https://github.com/jdcanas/jenkinsfile-test'
             }
         }
-        
+
+       
         stage('Build') {
             steps {
                 echo "building ${params.Greeting}"
+
+                script {
+                    get3Chars("dev")
+                    get3Chars("shouldWork")
+                    get3Chars(1034)
+                }
             }
         }
 
