@@ -16,7 +16,17 @@ pipeline {
     
     stage('Git2') {
         steps {
+             script {
+                echo "git url is: "
+                sh "echo $GIT_URL"
+              }
+              
               git credentialsId: 'jenkins-ssh-github', url: 'git@github.com:DataBiosphere/leonardo.git', branch: 'jc-test-poll'
+
+              script {
+                echo "git url is: "
+                sh "echo $GIT_URL"
+              }
         }
     }
    }
